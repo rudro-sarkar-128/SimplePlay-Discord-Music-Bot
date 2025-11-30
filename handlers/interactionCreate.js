@@ -2,6 +2,7 @@
 const { Events } = require('discord.js');
 
 const play = require('../functions/play');
+const osinfo = require('../functions/osinfo');
 
 module.exports = {
   name: Events.InteractionCreate,
@@ -30,6 +31,10 @@ module.exports = {
       }
 
       play(url, title, local, interaction);
+    }
+
+    if (interaction.commandName === 'info') {
+      osinfo(interaction);
     }
   }
 };

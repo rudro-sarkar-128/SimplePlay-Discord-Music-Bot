@@ -45,6 +45,10 @@ const commands = [
                 ]
             }
         ]
+    },
+    {
+        name: 'info',
+        description: 'Gives Informations'
     }
 ];
 

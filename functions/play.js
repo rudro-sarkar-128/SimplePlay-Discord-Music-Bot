@@ -55,9 +55,18 @@ const playLocalFile = async (member, interaction, local) => {
     await interaction.reply({ embeds: [embed] });
 
     player.on(AudioPlayerStatus.Idle, async () => {
-        player.stop();
         const textChannel = interaction.channel;
-        await textChannel.send('Track finished!');
+        await textChannel.send(`Track ended; Replaying... ${audio.title}`);
+        setTimeout(() => {
+            const newRes = createAudioResource(audio.path, {
+                metadata: {},
+                inlineVolume: false,
+                inputType: StreamType.Arbitrary,
+                ffmpegExecutablePath: ffmpeg
+            });
+            player.play(newRes);
+            connection.subscribe(player);
+        }, 2500);
     });
 
     player.on('error', async err => {
